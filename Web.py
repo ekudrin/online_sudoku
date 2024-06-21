@@ -3,7 +3,7 @@ import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from Sudoku import Sudoku
+from Sudoku import cell_values
 
 HIGHLIGHTED_VALUES = "//td[@class='game-cell game-value cell-selected highlight-number highlight-table'] |  //td[@class='game-cell game-value highlight-number']"
 OTHER_VALUES = "//td[@class='game-cell game-value highlight-table'] |//td[@class='game-cell game-value']"
@@ -46,14 +46,14 @@ def get_indexes_and_values(element):
     column = column_result.group(1)
 
     # get value
-    numeric_values = list(Sudoku.cell_values.keys())
+    numeric_values = list(cell_values.keys())
 
     if element.text == " ":
         value = '0'
     else:
         pattern_value = re.compile(r'd=\"(.*)\"></path>')
         value_result = pattern_value.search(html).group(1)
-        value = numeric_values[list(Sudoku.cell_values.values()).index(value_result)]
+        value = numeric_values[list(cell_values.values()).index(value_result)]
     return int(row), int(column), int(value)
 
 
