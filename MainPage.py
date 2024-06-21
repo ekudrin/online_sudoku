@@ -13,6 +13,8 @@ def main():
     board = copy_board(driver)
     solve(board)
     print(board)
+    fill_board(driver, board)
+    time.sleep(10)
 
 
 def setup_driver():
@@ -37,6 +39,18 @@ def copy_board(driver):
         board[elem_row][elem_col] = elem_value
     print(board)
     return board
+
+
+def fill_board(driver, board):
+    empty_values = driver.find_elements(By.XPATH, "//td[@class='game-cell highlight-table'] | //td[@class='game-cell']")
+
+    for element in empty_values:
+        elem_row, elem_col, elem_value = get_indexes_and_values(element)
+        element.click()
+        elem_value = board[elem_row][elem_col]
+        value_locator = "//div[@data-value='{}']".format(str(elem_value))
+        web_elem = driver.find_element(By.XPATH, value_locator)
+        web_elem.click()
 
 
 def get_indexes_and_values(element):
