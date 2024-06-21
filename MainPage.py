@@ -10,7 +10,7 @@ def main():
     board = Web.copy_board(driver)
     solve(board)
     Web.fill_board(driver, board)
-    time.sleep(10)
+    time.sleep(5)
 
 
 main()
